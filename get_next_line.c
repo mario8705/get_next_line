@@ -6,7 +6,7 @@
 /*   By: alavaud <alavaud@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/06 17:59:09 by alavaud      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 17:22:40 by alavaud     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 17:54:17 by alavaud     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ static int	the_get_next_line(int fd, char **line, int lbreak)
 
 int			get_next_line(int fd, char **line)
 {
-	if (BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || !line)
 		return (-1);
 	return (the_get_next_line(fd, line, 0));
 }
