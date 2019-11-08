@@ -6,7 +6,7 @@
 /*   By: alavaud <alavaud@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/06 17:56:48 by alavaud      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 17:59:42 by alavaud     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 17:22:16 by alavaud     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,6 @@
 int		get_next_line(int fd, char **line);
 
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcat(char *dst, const char *src, size_t size);
+char	*str_append(char **base, char *appended, size_t len);
 
 #endif

@@ -6,36 +6,14 @@
 /*   By: alavaud <alavaud@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/06 17:59:09 by alavaud      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 17:59:27 by alavaud     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 17:22:40 by alavaud     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char		*str_append(char **base, char *appended, size_t len)
-{
-	size_t	size;
-	char	*str;
-	char	*tmp;
-
-	size = len + 1;
-	if (*base)
-		size += ft_strlen(*base);
-	str = (char *)malloc(size);
-	if (str)
-	{
-		*str = '\0';
-		if (*base)
-			ft_strlcat(str, *base, size);
-		ft_strlcat(str, appended, size);
-	}
-	free(*base);
-	*base = str;
-	return (str);
-}
-
-int			ret_val(int n, int lbreak, char *line)
+int			ret_val(int n, char *line)
 {
 	int ret;
 
@@ -46,7 +24,7 @@ int			ret_val(int n, int lbreak, char *line)
 		ret = 0;
 	if (ret != 1)
 		free(line);
-	return (1);
+	return (ret);
 }
 
 static int	the_get_next_line(int fd, char **line, int lbreak)
@@ -74,10 +52,12 @@ static int	the_get_next_line(int fd, char **line, int lbreak)
 			break ;
 		bufpos = n;
 	}
-	return (ret_val(n, lbreak, *line));
+	return (ret_val(n, *line));
 }
 
 int			get_next_line(int fd, char **line)
 {
+	if (BUFFER_SIZE <= 0)
+		return (-1);
 	return (the_get_next_line(fd, line, 0));
 }
