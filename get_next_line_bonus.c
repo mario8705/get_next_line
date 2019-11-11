@@ -6,7 +6,7 @@
 /*   By: alavaud <alavaud@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 17:28:52 by alavaud      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 18:23:17 by alavaud     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 18:15:55 by alavaud     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,6 @@ t_gnl_context	*ctx_retrieve(t_gnl_context **lhead, int fd)
 		entry->buflen = 0;
 		*lhead = entry;
 	}
-	printf("Allocated new context %d\n", fd);
 	return (entry);
 }
 
@@ -52,7 +51,6 @@ void			ctx_finish(t_gnl_context **lhead, t_gnl_context *ctx)
 				prev->next = entry->next;
 			if (entry == *lhead)
 				*lhead = entry->next;
-			printf("Deleting context %d\n", ctx->fd);
 			break ;
 		}
 		prev = entry;
@@ -109,7 +107,7 @@ int				get_next_line(int fd, char **line)
 	t_gnl_context			*ctx;
 	int						n;
 
-	if (fd < 0 || !line || !(ctx = ctx_retrieve(&lhead, fd)))
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line || !(ctx = ctx_retrieve(&lhead, fd)))
 		return (-1);
 	n = gnl_core(ctx, line);
 	if (n <= 0)
