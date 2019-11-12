@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line_bonus.c                            .::    .:/ .      .::   */
+/*   get_next_line.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: alavaud <alavaud@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 17:28:52 by alavaud      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 18:15:55 by alavaud     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 18:15:37 by alavaud     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 t_gnl_context	*ctx_retrieve(t_gnl_context **lhead, int fd)
 {
@@ -93,12 +93,13 @@ int				gnl_core(t_gnl_context *context, char **line)
 			break ;
 		context->bufpos = s;
 	}
-	s = 1;
 	if (n == -1 || !(*line))
-		s = -1;
-	if (n == 0 && ft_strlen(*line) == 0)
-		s = 0;
-	return (s);
+	{
+		free(*line);
+		*line = NULL;
+		return (-1);
+	}
+	return (n == 0 ? 0 : 1);
 }
 
 int				get_next_line(int fd, char **line)
@@ -107,7 +108,8 @@ int				get_next_line(int fd, char **line)
 	t_gnl_context			*ctx;
 	int						n;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line || !(ctx = ctx_retrieve(&lhead, fd)))
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line ||
+		!(ctx = ctx_retrieve(&lhead, fd)))
 		return (-1);
 	n = gnl_core(ctx, line);
 	if (n <= 0)
